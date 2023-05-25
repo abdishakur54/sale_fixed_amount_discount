@@ -9,7 +9,7 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     discount_fixed = fields.Float(
-        string="Discount (Fixed)",
+        string="No of Days",
         digits="Product Price",
         help="Fixed amount discount.",
     ) 
@@ -17,8 +17,9 @@ class SaleOrderLine(models.Model):
     @api.onchange("discount")
     def _onchange_discount_percent(self):
         if self.discount:
-            total = self.product_uom_qty * self.price_unit
-            t_discount_fixed = (self.discount * total) 
+            t_discount_fixed ,
+            total = self.product_uom_qty * self.price_unit * self.discount_fixed
+            
 
             if self.discount_fixed != t_discount_fixed:
                 self.discount_fixed = t_discount_fixed
@@ -26,8 +27,9 @@ class SaleOrderLine(models.Model):
     @api.onchange("discount_fixed")
     def _onchange_discount_fixed(self):
         if self.discount_fixed:
-            total = self.product_uom_qty * self.price_unit
-            t_discount = (self.discount_fixed * total) 
+            t_discount ,
+            total = self.product_uom_qty * self.price_unit * self.discount_fixed
+
             if self.discount != t_discount:
                 self.discount = t_discount
 
